@@ -1,3 +1,41 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
 
-[node name="Spatial" type="Spatial"]
+[ext_resource path="res://node.tscn" type="PackedScene" id=1]
+[ext_resource path="res://connecting_line.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
+position = Vector2( 347, 176 )
+node_a = NodePath("../Node2D")
+node_b = NodePath("../Node2D2")
+disable_collision = false
+length = 200.0
+rest_length = 200.0
+damping = 0.48
+
+[node name="DampedSpringJoint2D2" type="DampedSpringJoint2D" parent="."]
+position = Vector2( 347, 176 )
+node_a = NodePath("../Node2D3")
+node_b = NodePath("../Node2D2")
+disable_collision = false
+length = 200.0
+rest_length = 200.0
+damping = 0.48
+
+[node name="Node2D" parent="." instance=ExtResource( 1 )]
+position = Vector2( 214, 253 )
+
+[node name="Node2D2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 438, 298 )
+
+[node name="Node2D3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 626, 421 )
+
+[node name="ConnectingLine" parent="." instance=ExtResource( 2 )]
+node_a = NodePath("../Node2D")
+node_b = NodePath("../Node2D2")
+
+[node name="ConnectingLine2" parent="." instance=ExtResource( 2 )]
+node_a = NodePath("../Node2D2")
+node_b = NodePath("../Node2D3")
