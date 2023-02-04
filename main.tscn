@@ -28,6 +28,22 @@ position = Vector2(404, 335)
 position = Vector2(579, 397)
 initial_nodes = Array[NodePath]([NodePath("../PulseNode4"), NodePath("../RootPulseNode")])
 
+[node name="PulseNode12" parent="." instance=ExtResource("1")]
+position = Vector2(641, 58)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode6"), NodePath("../PulseNode7")])
+
+[node name="PulseNode13" parent="." instance=ExtResource("1")]
+position = Vector2(493, -102)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode12"), NodePath("../PulseNode7")])
+
+[node name="PulseNode14" parent="." instance=ExtResource("1")]
+position = Vector2(194, 162)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode8"), NodePath("../PulseNode7"), NodePath("../PulseNode")])
+
+[node name="PulseNode15" parent="." instance=ExtResource("1")]
+position = Vector2(169, -47)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode14"), NodePath("../PulseNode7")])
+
 [node name="PulseNode4" parent="." instance=ExtResource("1")]
 position = Vector2(413, 505)
 

@@ -1,10 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://bw5801amywsva"]
+[gd_scene load_steps=14 format=3 uid="uid://bw5801amywsva"]
 
 [ext_resource type="Script" path="res://player.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://ctpacxotr5no2" path="res://textures/player_arrow.png" id="3_0rm30"]
 [ext_resource type="Script" path="res://player_aim.gd" id="4_hvxnw"]
 [ext_resource type="Texture2D" uid="uid://d4f3l6ii6sxav" path="res://textures/player_bg.png" id="4_jclvs"]
 [ext_resource type="Texture2D" uid="uid://be1hgcllpd08b" path="res://textures/player_center.png" id="5_eme1r"]
+
+[sub_resource type="Curve" id="Curve_78lkp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.14303, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_d4713"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.346154, 0.2), 0.0, 0.0, 0, 0, Vector2(0.349359, 0.109091), -0.630304, -0.630304, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="CanvasItemMaterial" id="6"]
 light_mode = 1
@@ -43,6 +51,9 @@ color = Color(1, 1, 1, 0.329412)
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1")
 travel_time = 0.3
+travel_curve = SubResource("Curve_78lkp")
+travel_reject_curve = SubResource("Curve_d4713")
+impulse_on_arrival = 400.0
 
 [node name="ParticlesBg" type="GPUParticles2D" parent="."]
 material = SubResource("6")

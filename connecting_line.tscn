@@ -1,24 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://w41agch7fhx3"]
+[gd_scene load_steps=7 format=3 uid="uid://w41agch7fhx3"]
 
-[ext_resource type="Script" path="res://connecting_line.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c7p5f3wyfq1x" path="res://textures/paper_thin.png" id="2"]
+[ext_resource type="Script" path="res://connecting_line.gd" id="2_f1224"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wmc76"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t7a7j"]
 blend_mode = 1
 light_mode = 1
 
+[sub_resource type="Gradient" id="Gradient_4mb6n"]
+colors = PackedColorArray(1, 0, 0.815686, 0.737255, 0, 1, 0.27451, 0.266667)
+
+[sub_resource type="Gradient" id="Gradient_undsc"]
+colors = PackedColorArray(0, 1, 0.27451, 0.266667, 1, 0, 0.815686, 0.737255)
+
+[sub_resource type="Gradient" id="Gradient_m80ia"]
+colors = PackedColorArray(1, 0, 0.815686, 0.737255, 1, 0, 0.815686, 0.737255)
+
 [node name="Line2D" type="Line2D"]
 z_index = -10
-material = SubResource("CanvasItemMaterial_wmc76")
+material = SubResource("CanvasItemMaterial_t7a7j")
 points = PackedVector2Array(0, 0, 50, 50)
 width = 3.0
 default_color = Color(0, 1, 0.27451, 0.266667)
 texture = ExtResource("2")
 texture_mode = 1
-script = ExtResource("1")
+script = ExtResource("2_f1224")
+infected_a_gradient = SubResource("Gradient_4mb6n")
+infected_b_gradient = SubResource("Gradient_undsc")
+infected_both_gradient = SubResource("Gradient_m80ia")
 
 [node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
-disable_collision = false
 length = 200.0
 rest_length = 180.0
 damping = 1.2
