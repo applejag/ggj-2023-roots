@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://bq3w5aingyu1t"]
+
+[ext_resource type="Script" path="res://pulse_node.gd" id="1_oawc5"]
+[ext_resource type="Texture2D" uid="uid://cvn0hvttgoorb" path="res://textures/light.png" id="2_vvahe"]
+[ext_resource type="Texture2D" uid="uid://dypinr6i3mb7o" path="res://textures/blob_bg.png" id="3_gl74v"]
+[ext_resource type="Script" path="res://pulse_node_pulsing_bg.gd" id="4_a16y1"]
+[ext_resource type="Texture2D" uid="uid://cadgeo3b02gw3" path="res://textures/blob_center.png" id="5_eq0n1"]
+
+[sub_resource type="OccluderPolygon2D" id="2"]
+cull_mode = 2
+polygon = PackedVector2Array(-29.8205, 0, -22.3653, 22.3653, 0, 29.8205, 22.3653, 22.3653, 29.8205, 0, 22.3653, -22.3653, 0, -29.8205, -22.3653, -22.3653)
+
+[sub_resource type="CanvasItemMaterial" id="3"]
+light_mode = 1
+
+[sub_resource type="CircleShape2D" id="1"]
+radius = 36.3456
+
+[node name="RootPulseNode" type="RigidBody2D"]
+rotation = 0.0960859
+can_sleep = false
+script = ExtResource("1_oawc5")
+initial_nodes = Array[NodePath]([NodePath("../PulseNode3")])
+
+[node name="Light2D" type="PointLight2D" parent="."]
+color = Color(0, 0.835294, 0.101961, 1)
+energy = 0.3
+shadow_enabled = true
+shadow_color = Color(0.0745098, 0.0745098, 0.0745098, 0.0588235)
+shadow_filter = 1
+shadow_filter_smooth = 2.4
+texture = ExtResource("2_vvahe")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+scale = Vector2(0.294138, 0.294138)
+occluder = SubResource("2")
+
+[node name="Spritebg" type="Sprite2D" parent="."]
+material = SubResource("3")
+position = Vector2(-1, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("3_gl74v")
+script = ExtResource("4_a16y1")
+pulse_speed = 1.0
+max_a = 0.8
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("3")
+scale = Vector2(2, 2)
+texture = ExtResource("5_eq0n1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
+
+[connection signal="input_event" from="." to="." method="_on_RigidBody2D_input_event" flags=18]

@@ -1,41 +1,64 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://devaw82wmfd0c"]
 
-[ext_resource path="res://node.tscn" type="PackedScene" id=1]
-[ext_resource path="res://connecting_line.tscn" type="PackedScene" id=2]
+[ext_resource type="PackedScene" uid="uid://g4d7aoh4gma0" path="res://pulse_node.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://bq3w5aingyu1t" path="res://pulse_root_node.tscn" id="3_tpt4d"]
+[ext_resource type="Texture2D" uid="uid://bbcvcvx0rr8kl" path="res://textures/background.png" id="4"]
+[ext_resource type="PackedScene" uid="uid://bw5801amywsva" path="res://player.tscn" id="5"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
-position = Vector2( 347, 176 )
-node_a = NodePath("../Node2D")
-node_b = NodePath("../Node2D2")
-disable_collision = false
-length = 200.0
-rest_length = 200.0
-damping = 0.48
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.27451, 0.27451, 0.27451, 1)
 
-[node name="DampedSpringJoint2D2" type="DampedSpringJoint2D" parent="."]
-position = Vector2( 347, 176 )
-node_a = NodePath("../Node2D3")
-node_b = NodePath("../Node2D2")
-disable_collision = false
-length = 200.0
-rest_length = 200.0
-damping = 0.48
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1000
+position = Vector2(513, 302)
+scale = Vector2(100, 100)
+texture = ExtResource("4")
 
-[node name="Node2D" parent="." instance=ExtResource( 1 )]
-position = Vector2( 214, 253 )
+[node name="PulseNode" parent="." instance=ExtResource("1")]
+position = Vector2(203, 353)
+rotation = 3.21695
+initial_nodes = Array[NodePath]([NodePath("../RootPulseNode")])
 
-[node name="Node2D2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 438, 298 )
+[node name="RootPulseNode" parent="." instance=ExtResource("3_tpt4d")]
+position = Vector2(404, 335)
 
-[node name="Node2D3" parent="." instance=ExtResource( 1 )]
-position = Vector2( 626, 421 )
+[node name="PulseNode3" parent="." instance=ExtResource("1")]
+position = Vector2(579, 397)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode4"), NodePath("../RootPulseNode")])
 
-[node name="ConnectingLine" parent="." instance=ExtResource( 2 )]
-node_a = NodePath("../Node2D")
-node_b = NodePath("../Node2D2")
+[node name="PulseNode4" parent="." instance=ExtResource("1")]
+position = Vector2(413, 505)
 
-[node name="ConnectingLine2" parent="." instance=ExtResource( 2 )]
-node_a = NodePath("../Node2D2")
-node_b = NodePath("../Node2D3")
+[node name="PulseNode10" parent="." instance=ExtResource("1")]
+position = Vector2(495, 679)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode4")])
+
+[node name="PulseNode11" parent="." instance=ExtResource("1")]
+position = Vector2(181, 649)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode4"), NodePath("../PulseNode9")])
+
+[node name="PulseNode5" parent="." instance=ExtResource("1")]
+position = Vector2(666, 547)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode4"), NodePath("../PulseNode3")])
+
+[node name="PulseNode6" parent="." instance=ExtResource("1")]
+position = Vector2(802, 261)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode3")])
+
+[node name="PulseNode7" parent="." instance=ExtResource("1")]
+position = Vector2(395, 76)
+initial_nodes = Array[NodePath]([NodePath("../RootPulseNode")])
+
+[node name="PulseNode8" parent="." instance=ExtResource("1")]
+position = Vector2(6, 299)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode")])
+
+[node name="PulseNode9" parent="." instance=ExtResource("1")]
+position = Vector2(2, 484)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode")])
+
+[node name="Player" parent="." node_paths=PackedStringArray("host_node") instance=ExtResource("5")]
+position = Vector2(294, 404)
+host_node = NodePath("../PulseNode")
