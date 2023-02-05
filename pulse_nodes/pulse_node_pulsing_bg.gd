@@ -7,7 +7,7 @@ var ticks_offset = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	ticks_offset = randi() % int(1000/pulse_speed)
+	ticks_offset = randi() % 100000
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

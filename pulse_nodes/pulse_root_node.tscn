@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bq3w5aingyu1t"]
+[gd_scene load_steps=11 format=3]
 
-[ext_resource type="Script" path="res://pulse_node.gd" id="1_oawc5"]
+[ext_resource type="Script" path="res://pulse_nodes/pulse_node.gd" id="1_oawc5"]
 [ext_resource type="Texture2D" uid="uid://d4f3l6ii6sxav" path="res://textures/player_bg.png" id="2_4y1uo"]
 [ext_resource type="Texture2D" uid="uid://cvn0hvttgoorb" path="res://textures/light.png" id="2_vvahe"]
 [ext_resource type="Texture2D" uid="uid://be1hgcllpd08b" path="res://textures/player_center.png" id="3_4h03r"]
 [ext_resource type="Texture2D" uid="uid://dypinr6i3mb7o" path="res://textures/blob_bg.png" id="3_gl74v"]
-[ext_resource type="Script" path="res://pulse_node_pulsing_bg.gd" id="4_a16y1"]
+[ext_resource type="Script" path="res://pulse_nodes/pulse_node_pulsing_bg.gd" id="4_a16y1"]
 [ext_resource type="Texture2D" uid="uid://cadgeo3b02gw3" path="res://textures/blob_center.png" id="5_eq0n1"]
 
 [sub_resource type="OccluderPolygon2D" id="2"]

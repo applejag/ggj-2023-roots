@@ -1,12 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://g4d7aoh4gma0"]
+[gd_scene load_steps=11 format=3 uid="uid://c5mcx5ssdf02p"]
 
-[ext_resource type="Texture2D" uid="uid://dypinr6i3mb7o" path="res://textures/blob_bg.png" id="1"]
-[ext_resource type="Script" path="res://pulse_node.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://cvn0hvttgoorb" path="res://textures/light.png" id="2_248b1"]
-[ext_resource type="Texture2D" uid="uid://d4f3l6ii6sxav" path="res://textures/player_bg.png" id="2_uqp57"]
-[ext_resource type="Texture2D" uid="uid://cadgeo3b02gw3" path="res://textures/blob_center.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://be1hgcllpd08b" path="res://textures/player_center.png" id="3_q8ad3"]
-[ext_resource type="Script" path="res://pulse_node_pulsing_bg.gd" id="4"]
+[ext_resource type="Script" path="res://pulse_nodes/pulse_node.gd" id="1_an622"]
+[ext_resource type="Texture2D" uid="uid://d4f3l6ii6sxav" path="res://textures/player_bg.png" id="2_ee0bx"]
+[ext_resource type="Texture2D" uid="uid://be1hgcllpd08b" path="res://textures/player_center.png" id="3_08sf6"]
+[ext_resource type="Texture2D" uid="uid://cvn0hvttgoorb" path="res://textures/light.png" id="4_twsvk"]
+[ext_resource type="Texture2D" uid="uid://dypinr6i3mb7o" path="res://textures/blob_bg.png" id="5_82c5d"]
+[ext_resource type="Script" path="res://pulse_nodes/pulse_node_pulsing_bg.gd" id="6_qxeh3"]
+[ext_resource type="Texture2D" uid="uid://cadgeo3b02gw3" path="res://textures/blob_center.png" id="7_lenq0"]
 
 [sub_resource type="OccluderPolygon2D" id="2"]
 cull_mode = 2
@@ -21,10 +21,10 @@ radius = 9.05539
 [node name="PulseNode" type="RigidBody2D"]
 can_sleep = false
 linear_damp = 2.0
-script = ExtResource("2")
+script = ExtResource("1_an622")
 force_away_from_neighbors = 800.0
-infected_bg_texture = ExtResource("2_uqp57")
-infected_fg_texture = ExtResource("3_q8ad3")
+infected_bg_texture = ExtResource("2_ee0bx")
+infected_fg_texture = ExtResource("3_08sf6")
 
 [node name="Light2D" type="PointLight2D" parent="."]
 scale = Vector2(0.6, 0.6)
@@ -33,7 +33,7 @@ energy = 0.1
 shadow_color = Color(0.0745098, 0.0745098, 0.0745098, 0.0588235)
 shadow_filter = 1
 shadow_filter_smooth = 2.4
-texture = ExtResource("2_248b1")
+texture = ExtResource("4_twsvk")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 scale = Vector2(0.294138, 0.294138)
@@ -43,15 +43,15 @@ occluder = SubResource("2")
 material = SubResource("3")
 position = Vector2(-1, 0)
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("1")
-script = ExtResource("4")
+texture = ExtResource("5_82c5d")
+script = ExtResource("6_qxeh3")
 pulse_speed = 1.0
 max_a = 0.8
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("3")
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("3")
+texture = ExtResource("7_lenq0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_y7gew")

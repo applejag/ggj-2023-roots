@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://devaw82wmfd0c"]
+[gd_scene load_steps=6 format=3 uid="uid://c4e3te0j3lv5n"]
 
-[ext_resource type="PackedScene" uid="uid://g4d7aoh4gma0" path="res://pulse_node.tscn" id="1"]
-[ext_resource type="PackedScene" uid="uid://bq3w5aingyu1t" path="res://pulse_root_node.tscn" id="3_tpt4d"]
+[ext_resource type="PackedScene" uid="uid://g4d7aoh4gma0" path="res://pulse_nodes/pulse_node.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://pulse_nodes/pulse_root_node.tscn" id="3_tpt4d"]
 [ext_resource type="Texture2D" uid="uid://bbcvcvx0rr8kl" path="res://textures/background.png" id="4"]
-[ext_resource type="PackedScene" uid="uid://bw5801amywsva" path="res://player.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://csh14obw344ln" path="res://pulse_nodes/player/player.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://cpg3rpd72ogng" path="res://pulse_nodes/enemies/uninfecter.tscn" id="5_fgvbr"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -19,6 +20,10 @@ texture = ExtResource("4")
 [node name="Player" parent="." node_paths=PackedStringArray("host_node") instance=ExtResource("5")]
 position = Vector2(294, 404)
 host_node = NodePath("../PulseNode")
+
+[node name="Uninfecter" parent="." node_paths=PackedStringArray("host_node") instance=ExtResource("5_fgvbr")]
+position = Vector2(440, 291)
+host_node = NodePath("../RootPulseNode")
 
 [node name="PulseNode" parent="." instance=ExtResource("1")]
 position = Vector2(203, 353)

@@ -1,0 +1,101 @@
+[gd_scene load_steps=19 format=3 uid="uid://cpg3rpd72ogng"]
+
+[ext_resource type="Script" path="res://pulse_nodes/enemies/uninfecter.gd" id="1_icllw"]
+[ext_resource type="Texture2D" uid="uid://dypinr6i3mb7o" path="res://textures/blob_bg.png" id="2_ov44p"]
+[ext_resource type="Texture2D" uid="uid://cadgeo3b02gw3" path="res://textures/blob_center.png" id="5_ngv1h"]
+[ext_resource type="AudioStream" uid="uid://ctbc5fiiucw3c" path="res://audio/move.wav" id="6_oxsgn"]
+[ext_resource type="AudioStream" uid="uid://bjo1mji3gm7eq" path="res://audio/move_reject.wav" id="7_5bw12"]
+[ext_resource type="AudioStream" uid="uid://bq4tkt44hswqg" path="res://audio/infect.wav" id="8_ger7i"]
+
+[sub_resource type="Curve" id="Curve_qdvp1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.14303, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_rpx0t"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.346154, 0.2), 0.0, 0.0, 0, 0, Vector2(0.349359, 0.109091), -0.630304, -0.630304, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CanvasItemMaterial" id="6"]
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_hh4a5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.511236, 0.384091), 0.0, 0.0, 0, 0, Vector2(0.752809, 0.945454), 0.0, 0.0, 0, 0, Vector2(0.988764, 0.436364), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_lrh2h"]
+curve = SubResource("Curve_hh4a5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y021d"]
+lifetime_randomness = 0.14
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 19.48
+initial_velocity_max = 25.97
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_lrh2h")
+color = Color(1, 1, 1, 0.329412)
+
+[sub_resource type="Curve" id="Curve_bpydl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.511236, 0.384091), 0.0, 0.0, 0, 0, Vector2(0.752809, 0.945454), 0.0, 0.0, 0, 0, Vector2(0.988764, 0.436364), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_kvq6r"]
+curve = SubResource("Curve_bpydl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q5o8i"]
+lifetime_randomness = 0.14
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 19.48
+initial_velocity_max = 25.97
+scale_min = 0.7
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_kvq6r")
+color = Color(1, 1, 1, 0.329412)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ukafj"]
+streams_count = 1
+random_pitch = 1.03
+stream_0/stream = ExtResource("6_oxsgn")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bmkwf"]
+streams_count = 1
+stream_0/stream = ExtResource("7_5bw12")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2gc6p"]
+streams_count = 1
+stream_0/stream = ExtResource("8_ger7i")
+stream_0/weight = 1.0
+
+[node name="Uninfecter" type="Node2D" node_paths=PackedStringArray("host_node", "next_node")]
+script = ExtResource("1_icllw")
+host_node = NodePath("")
+next_node = NodePath("")
+travel_time = 2.0
+travel_curve = SubResource("Curve_qdvp1")
+travel_reject_curve = SubResource("Curve_rpx0t")
+impulse_on_leaving = 100.0
+
+[node name="ParticlesBg" type="GPUParticles2D" parent="."]
+material = SubResource("6")
+scale = Vector2(0.7, 0.7)
+process_material = SubResource("ParticleProcessMaterial_y021d")
+texture = ExtResource("2_ov44p")
+
+[node name="ParticlesFg" type="GPUParticles2D" parent="."]
+material = SubResource("6")
+scale = Vector2(0.7, 0.7)
+amount = 28
+process_material = SubResource("ParticleProcessMaterial_q5o8i")
+texture = ExtResource("5_ngv1h")
+
+[node name="AudioMove" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_ukafj")
+
+[node name="AudioMoveReject" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_bmkwf")
+
+[node name="AudioInfect" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_2gc6p")

@@ -8,6 +8,10 @@ class_name PulseNode
 @export var infected_bg_texture: Texture2D
 @export var infected_fg_texture: Texture2D
 
+var uninfected_light_color: Color
+var uninfected_bg_texture: Texture2D
+var uninfected_fg_texture: Texture2D
+
 var is_infected = false
 var connected_nodes: Array[PulseNode] = []
 var connections: Array[PulseNodeConnection] = []
@@ -58,9 +62,23 @@ func infect() -> bool:
 	if is_infected:
 		return false
 	is_infected = true
+	uninfected_light_color = $Light2D.color
+	uninfected_bg_texture = $Spritebg.texture
+	uninfected_fg_texture = $Sprite.texture
 	$Light2D.color = infected_light_color
 	$Spritebg.texture = infected_bg_texture
 	$Sprite.texture = infected_fg_texture
+	for conn in connections:
+		conn.update_infected()
+	return true
+
+func uninfect() -> bool:
+	if not is_infected:
+		return false
+	is_infected = false
+	$Light2D.color = uninfected_light_color
+	$Spritebg.texture = uninfected_bg_texture
+	$Sprite.texture = uninfected_fg_texture
 	for conn in connections:
 		conn.update_infected()
 	return true

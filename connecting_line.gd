@@ -26,3 +26,5 @@ func update_infected() -> void:
 		gradient = infected_a_gradient
 	elif node_b.is_infected:
 		gradient = infected_b_gradient
+	else:
+		gradient = null
