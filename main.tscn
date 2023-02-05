@@ -16,6 +16,10 @@ position = Vector2(513, 302)
 scale = Vector2(100, 100)
 texture = ExtResource("4")
 
+[node name="Player" parent="." node_paths=PackedStringArray("host_node") instance=ExtResource("5")]
+position = Vector2(294, 404)
+host_node = NodePath("../PulseNode")
+
 [node name="PulseNode" parent="." instance=ExtResource("1")]
 position = Vector2(203, 353)
 rotation = 3.21695
@@ -75,7 +79,3 @@ initial_nodes = Array[NodePath]([NodePath("../PulseNode")])
 [node name="PulseNode9" parent="." instance=ExtResource("1")]
 position = Vector2(2, 484)
 initial_nodes = Array[NodePath]([NodePath("../PulseNode")])
-
-[node name="Player" parent="." node_paths=PackedStringArray("host_node") instance=ExtResource("5")]
-position = Vector2(294, 404)
-host_node = NodePath("../PulseNode")
