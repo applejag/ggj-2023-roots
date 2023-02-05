@@ -1,6 +1,7 @@
 extends Node2D
 class_name NodeMove
 
+@export var is_infecting: bool
 @export var host_node: PulseNode
 @export var next_node: PulseNode
 @export_range(0, 5) var travel_time = 3.0
@@ -11,12 +12,23 @@ class_name NodeMove
 
 var next_node_t: float
 var next_node_reject: bool
+var death_scene = preload("res://pulse_nodes/node_move_death.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if host_node.infect():
-		$AudioInfect.play()
 	process_node_move(delta)
+
+func die():
+	_on_death()
+	queue_free()
+
+func _on_death():
+	var scene = death_scene.instantiate()
+	scene.position = position
+	var particles: GPUParticles2D = scene.find_child("InfectedParticles") if not is_infecting else scene.find_child("UninfectedParticles")
+	particles.emitting = true
+	scene.find_child("AudioDeath").play()
+	add_sibling.call_deferred(scene)
 
 func _on_node_move_start():
 	pass
@@ -83,13 +95,21 @@ func get_closest_node(point: Vector2) -> PulseNode:
 func get_node_move_on_node(node: PulseNode) -> NodeMove:
 	for sibling in get_parent().get_children():
 		var node_move = sibling as NodeMove
-		if node_move and node_move.host_node == node and not node_move.next_node:
+		if node_move and node_move != self and node_move.host_node == node and not node_move.next_node:
 			return node_move
 	return null
 
 func get_node_move_going_to_node(node: PulseNode) -> NodeMove:
 	for sibling in get_parent().get_children():
 		var node_move = sibling as NodeMove
-		if node_move and node_move.next_node == node:
+		if node_move and node_move != self and node_move.next_node == node:
 			return node_move
+	return null
+
+func get_connection_for_move() -> PulseNodeConnection:
+	if next_node == null:
+		return null
+	for conn in host_node.connections:
+		if conn.node_a == next_node or conn.node_b == next_node:
+			return conn
 	return null

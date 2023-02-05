@@ -3,34 +3,34 @@
 [ext_resource type="Texture2D" uid="uid://c7p5f3wyfq1x" path="res://textures/paper_thin.png" id="2"]
 [ext_resource type="Script" path="res://connecting_line.gd" id="2_51pd4"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vj6w2"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0aqvd"]
 blend_mode = 1
 light_mode = 1
 
-[sub_resource type="Gradient" id="Gradient_f7lo0"]
+[sub_resource type="Gradient" id="Gradient_6nbvr"]
 offsets = PackedFloat32Array(0, 0.52669, 1)
 colors = PackedColorArray(0.91, 0, 0.728, 0.607843, 0.439216, 0.105882, 0.494118, 0.431373, 0, 1, 0.27451, 0.266667)
 
-[sub_resource type="Gradient" id="Gradient_1641i"]
+[sub_resource type="Gradient" id="Gradient_cike5"]
 offsets = PackedFloat32Array(0, 0.52669, 1)
 colors = PackedColorArray(0, 1, 0.27451, 0.266667, 0.439216, 0.105882, 0.494118, 0.431373, 0.909804, 0, 0.729412, 0.607843)
 
-[sub_resource type="Gradient" id="Gradient_kcnl2"]
+[sub_resource type="Gradient" id="Gradient_77mst"]
 offsets = PackedFloat32Array(0, 0.52669, 1)
 colors = PackedColorArray(0.909804, 0, 0.729412, 0.607843, 0.439216, 0.105882, 0.494118, 0.431373, 0.909804, 0, 0.729412, 0.607843)
 
 [node name="Line2D" type="Line2D"]
 z_index = -10
-material = SubResource("CanvasItemMaterial_vj6w2")
+material = SubResource("CanvasItemMaterial_0aqvd")
 points = PackedVector2Array(0, 0, 50, 50)
 width = 3.0
 default_color = Color(0, 1, 0.27451, 0.266667)
 texture = ExtResource("2")
 texture_mode = 1
 script = ExtResource("2_51pd4")
-infected_a_gradient = SubResource("Gradient_f7lo0")
-infected_b_gradient = SubResource("Gradient_1641i")
-infected_both_gradient = SubResource("Gradient_kcnl2")
+infected_a_gradient = SubResource("Gradient_6nbvr")
+infected_b_gradient = SubResource("Gradient_cike5")
+infected_both_gradient = SubResource("Gradient_77mst")
 
 [node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
 length = 200.0

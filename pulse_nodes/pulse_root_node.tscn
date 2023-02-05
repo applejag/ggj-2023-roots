@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ri4jaj7dxdfj"]
+[gd_scene load_steps=15 format=3 uid="uid://ri4jaj7dxdfj"]
 
 [ext_resource type="Script" path="res://pulse_nodes/pulse_root_node.gd" id="1_rh0yr"]
 [ext_resource type="Texture2D" uid="uid://d4f3l6ii6sxav" path="res://textures/player_bg.png" id="2_4y1uo"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dypinr6i3mb7o" path="res://textures/blob_bg.png" id="3_gl74v"]
 [ext_resource type="Script" path="res://pulse_nodes/pulse_node_pulsing_bg.gd" id="4_a16y1"]
 [ext_resource type="Texture2D" uid="uid://cadgeo3b02gw3" path="res://textures/blob_center.png" id="5_eq0n1"]
+[ext_resource type="AudioStream" uid="uid://bq4tkt44hswqg" path="res://audio/infect.wav" id="8_bvtr8"]
+[ext_resource type="AudioStream" uid="uid://dnj6d26tqqpb3" path="res://audio/uninfect.wav" id="9_fwkye"]
 
 [sub_resource type="OccluderPolygon2D" id="2"]
 cull_mode = 2
@@ -17,6 +19,16 @@ light_mode = 1
 
 [sub_resource type="CircleShape2D" id="1"]
 radius = 36.3456
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2jk1l"]
+streams_count = 1
+stream_0/stream = ExtResource("8_bvtr8")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1a1xf"]
+streams_count = 1
+stream_0/stream = ExtResource("9_fwkye")
+stream_0/weight = 1.0
 
 [node name="RootPulseNode" type="RigidBody2D"]
 rotation = 0.0960859
@@ -57,3 +69,9 @@ texture = ExtResource("5_eq0n1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
+
+[node name="AudioInfect" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_2jk1l")
+
+[node name="AudioUninfect" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_1a1xf")

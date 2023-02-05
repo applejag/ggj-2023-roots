@@ -1,0 +1,76 @@
+[gd_scene load_steps=13 format=3 uid="uid://uocq8ah4tv6u"]
+
+[ext_resource type="Script" path="res://pulse_nodes/node_move_death.gd" id="1_5gduv"]
+[ext_resource type="AudioStream" uid="uid://d30o51ydjpalb" path="res://audio/dies.wav" id="1_umv0n"]
+[ext_resource type="Texture2D" uid="uid://d4f3l6ii6sxav" path="res://textures/player_bg.png" id="2_dos2w"]
+[ext_resource type="Texture2D" uid="uid://dypinr6i3mb7o" path="res://textures/blob_bg.png" id="3_e2jix"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tomno"]
+streams_count = 1
+stream_0/stream = ExtResource("1_umv0n")
+stream_0/weight = 1.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eibyi"]
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_woop0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.511236, 0.384091), 0.0, 0.0, 0, 0, Vector2(0.752809, 0.945454), 0.0, 0.0, 0, 0, Vector2(0.988764, 0.436364), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_fd21c"]
+curve = SubResource("Curve_woop0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ludti"]
+lifetime_randomness = 0.14
+emission_shape = 1
+emission_sphere_radius = 50.0
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 19.48
+initial_velocity_max = 25.97
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_fd21c")
+color = Color(1, 1, 1, 0.329412)
+
+[sub_resource type="Curve" id="Curve_hr7nh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.511236, 0.384091), 0.0, 0.0, 0, 0, Vector2(0.752809, 0.945454), 0.0, 0.0, 0, 0, Vector2(0.988764, 0.436364), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_2ot8u"]
+curve = SubResource("Curve_hr7nh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v7s5q"]
+lifetime_randomness = 0.14
+emission_shape = 1
+emission_sphere_radius = 50.0
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 19.48
+initial_velocity_max = 25.97
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_2ot8u")
+color = Color(1, 1, 1, 0.329412)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_5gduv")
+
+[node name="AudioDeath" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_tomno")
+
+[node name="InfectedParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_eibyi")
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_ludti")
+texture = ExtResource("2_dos2w")
+lifetime = 0.5
+one_shot = true
+
+[node name="UninfectedParticles" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_eibyi")
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_v7s5q")
+texture = ExtResource("3_e2jix")
+lifetime = 0.5
+one_shot = true

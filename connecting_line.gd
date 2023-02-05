@@ -28,3 +28,4 @@ func update_infected() -> void:
 		gradient = infected_b_gradient
 	else:
 		gradient = null
+

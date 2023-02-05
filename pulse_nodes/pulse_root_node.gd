@@ -1,5 +1,6 @@
 extends PulseNode
 
+@export var spawn_uninfecters = true
 @export var spawn_uninfecter_delay = 15.0
 @export var spawn_uninfecter_wait = 10.0
 
@@ -7,7 +8,7 @@ var uninfecter_scene = preload("res://pulse_nodes/enemies/uninfecter.tscn")
 
 func _process(delta: float) -> void:
 	super(delta)
-	if not is_infected:
+	if not is_infected and spawn_uninfecters:
 		spawn_uninfecter_wait -= delta
 		if spawn_uninfecter_wait <= 0:
 			spawn_uninfecter_wait = spawn_uninfecter_delay

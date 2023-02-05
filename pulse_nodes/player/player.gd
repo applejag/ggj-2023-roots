@@ -1,11 +1,8 @@
 extends NodeMove
 class_name Player
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if not next_node and host_node.infect():
-		$AudioInfect.play()
-	process_node_move(delta)
+func _ready():
+	host_node.infect()
 
 func _input(event: InputEvent) -> void:
 	if next_node:
@@ -15,6 +12,13 @@ func _input(event: InputEvent) -> void:
 		var closest_node = get_closest_node(point)
 		if closest_node:
 			move_to_node(closest_node, should_reject_move(closest_node))
+
+func _on_node_move_done(prev_node: PulseNode) -> void:
+	if get_node_move_on_node(host_node):
+		die()
+		return
+
+	host_node.infect()
 
 func get_uninfected_node_count() -> int:
 	var count = 0
@@ -26,4 +30,4 @@ func get_uninfected_node_count() -> int:
 func should_reject_move(node: PulseNode) -> bool:
 	if node.is_root and get_uninfected_node_count() > 1:
 		return true
-	return not not get_node_move_on_node(node)
+	return get_node_move_going_to_node(node) or get_node_move_on_node(node)

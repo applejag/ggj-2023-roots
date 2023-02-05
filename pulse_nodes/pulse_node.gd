@@ -65,6 +65,7 @@ func infect() -> bool:
 	if is_infected:
 		return false
 	is_infected = true
+	$AudioInfect.play()
 	uninfected_light_color = $Light2D.color
 	uninfected_bg_texture = $Spritebg.texture
 	uninfected_fg_texture = $Sprite.texture
@@ -82,6 +83,7 @@ func uninfect() -> bool:
 	if not is_infected:
 		return false
 	is_infected = false
+	$AudioUninfect.play()
 	$Light2D.color = uninfected_light_color
 	$Spritebg.texture = uninfected_bg_texture
 	$Sprite.texture = uninfected_fg_texture

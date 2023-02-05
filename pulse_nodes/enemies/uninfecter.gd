@@ -1,15 +1,14 @@
 extends NodeMove
 class_name Uninfecter
 
+@export var move_around = true
 @export var post_move_delay_min_sec = 3
 @export var post_move_delay_max_sec = 5
 @export var post_move_wait = 5
 
 func _process(delta: float) -> void:
-	if not next_node and host_node.uninfect():
-		$AudioInfect.play()
-	process_node_move(delta)
-	if not next_node:
+	super(delta)
+	if not next_node and move_around:
 		post_move_wait -= delta
 		if post_move_wait <= 0:
 			post_move_wait = randf_range(post_move_delay_min_sec, post_move_delay_max_sec)
@@ -22,14 +21,16 @@ func _on_node_move_start():
 		next_node.connect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
 	pass
 func _on_node_move_done(prev_node: PulseNode):
+	host_node.uninfect()
+	
+	var move = get_node_move_on_node(host_node)
+	if move and not move.next_node and move is Player:
+		# KILL PLAYER!!
+		move.die()
+
 	if prev_node.is_connected("on_neighbor_infected_changed", self._on_neighbor_infected_changed):
 		prev_node.disconnect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
 
-	var move = get_node_move_on_node(host_node)
-	if move is Player:
-		# KILL PLAYER!!
-		move.queue_free()
-	
 	if not check_if_dead():
 		if not host_node.is_connected("on_neighbor_infected_changed", self._on_neighbor_infected_changed):
 			host_node.connect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
@@ -42,7 +43,7 @@ func check_if_dead() -> bool:
 		or (not next_node and host_node.is_all_neighbors_infected()):
 		if host_node.is_connected("on_neighbor_infected_changed", self._on_neighbor_infected_changed):
 			host_node.disconnect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
-		queue_free()
+		die()
 		return true
 	return false
 
