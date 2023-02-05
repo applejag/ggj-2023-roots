@@ -23,6 +23,7 @@ initial_nodes = Array[NodePath]([NodePath("../RootPulseNode")])
 
 [node name="RootPulseNode" parent="." instance=ExtResource("3_tpt4d")]
 position = Vector2(404, 335)
+initial_nodes = Array[NodePath]([])
 
 [node name="PulseNode3" parent="." instance=ExtResource("1")]
 position = Vector2(579, 397)

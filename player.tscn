@@ -1,10 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://bw5801amywsva"]
+[gd_scene load_steps=20 format=3 uid="uid://bw5801amywsva"]
 
 [ext_resource type="Script" path="res://player.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://ctpacxotr5no2" path="res://textures/player_arrow.png" id="3_0rm30"]
 [ext_resource type="Script" path="res://player_aim.gd" id="4_hvxnw"]
 [ext_resource type="Texture2D" uid="uid://d4f3l6ii6sxav" path="res://textures/player_bg.png" id="4_jclvs"]
 [ext_resource type="Texture2D" uid="uid://be1hgcllpd08b" path="res://textures/player_center.png" id="5_eme1r"]
+[ext_resource type="AudioStream" uid="uid://ctbc5fiiucw3c" path="res://audio/move.wav" id="6_itfxr"]
+[ext_resource type="AudioStream" uid="uid://bjo1mji3gm7eq" path="res://audio/move_reject.wav" id="7_2fhw2"]
+[ext_resource type="AudioStream" uid="uid://bq4tkt44hswqg" path="res://audio/infect.wav" id="8_n7oqu"]
 
 [sub_resource type="Curve" id="Curve_78lkp"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.14303, 0.0, 0, 0]
@@ -48,6 +51,22 @@ scale_max = 0.7
 scale_curve = SubResource("4")
 color = Color(1, 1, 1, 0.329412)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ukafj"]
+streams_count = 1
+random_pitch = 1.03
+stream_0/stream = ExtResource("6_itfxr")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bmkwf"]
+streams_count = 1
+stream_0/stream = ExtResource("7_2fhw2")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2gc6p"]
+streams_count = 1
+stream_0/stream = ExtResource("8_n7oqu")
+stream_0/weight = 1.0
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1")
 travel_time = 0.3
@@ -76,3 +95,12 @@ texture = ExtResource("5_eme1r")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
+
+[node name="AudioMove" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_ukafj")
+
+[node name="AudioMoveReject" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_bmkwf")
+
+[node name="AudioInfect" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_2gc6p")

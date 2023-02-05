@@ -14,7 +14,8 @@ var next_node_reject: bool
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	host_node.infect()
+	if host_node.infect():
+		$AudioInfect.play()
 	var host_pos = host_node.position
 	if next_node:
 		next_node_t += delta / travel_time
@@ -57,6 +58,10 @@ func move_to_node(node: PulseNode) -> void:
 	next_node = node
 	next_node_t = 0
 	next_node_reject = node.is_root and get_uninfected_node_count() > 1
+	if next_node_reject:
+		$AudioMoveReject.play()
+	else:
+		$AudioMove.play()
 
 func get_uninfected_node_count() -> int:
 	var count = 0
