@@ -1,8 +1,12 @@
 extends NodeMove
 class_name Player
 
+signal win_game()
+signal lose_game()
+
 func _ready():
 	host_node.infect()
+	$Camera2D.make_current()
 
 func _input(event: InputEvent) -> void:
 	if next_node:
@@ -13,12 +17,22 @@ func _input(event: InputEvent) -> void:
 		if closest_node:
 			move_to_node(closest_node, should_reject_move(closest_node))
 
-func _on_node_move_done(prev_node: PulseNode) -> void:
+func _on_node_move_done(_prev_node: PulseNode) -> void:
 	if get_node_move_on_node(host_node):
 		die()
 		return
 
-	host_node.infect()
+	if host_node.infect() and host_node.is_root:
+		$Camera2D.reparent(host_node)
+		win()
+
+func win():
+	queue_free()
+	emit_signal("win_game")
+
+func _on_death():
+	super()
+	emit_signal("lose_game")
 
 func get_uninfected_node_count() -> int:
 	var count = 0

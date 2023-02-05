@@ -32,19 +32,16 @@ stream_0/weight = 1.0
 
 [node name="PulseNode" type="RigidBody2D"]
 can_sleep = false
-linear_damp = 2.0
+linear_damp = 1.2
 script = ExtResource("1_an622")
 force_away_from_neighbors = 800.0
+infected_light_color = Color(0.627451, 0.12549, 0.941176, 0.313726)
 infected_bg_texture = ExtResource("2_ee0bx")
 infected_fg_texture = ExtResource("3_08sf6")
 
-[node name="Light2D" type="PointLight2D" parent="."]
+[node name="Light2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.835294, 0.101961, 0.235294)
 scale = Vector2(0.6, 0.6)
-color = Color(0, 0.835294, 0.101961, 1)
-energy = 0.1
-shadow_color = Color(0.0745098, 0.0745098, 0.0745098, 0.0588235)
-shadow_filter = 1
-shadow_filter_smooth = 2.4
 texture = ExtResource("4_twsvk")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]

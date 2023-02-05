@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhe0ouknik7f6"]
+
+[ext_resource type="PackedScene" uid="uid://baw3y7egpdflf" path="res://levels/next_level.tscn" id="1_36ytw"]
+[ext_resource type="Texture2D" uid="uid://bbcvcvx0rr8kl" path="res://textures/background.png" id="1_72ew2"]
+[ext_resource type="PackedScene" uid="uid://csh14obw344ln" path="res://pulse_nodes/player/player.tscn" id="2_e5vud"]
+[ext_resource type="PackedScene" uid="uid://g4d7aoh4gma0" path="res://pulse_nodes/pulse_node.tscn" id="4_yj28q"]
+[ext_resource type="PackedScene" uid="uid://ri4jaj7dxdfj" path="res://pulse_nodes/pulse_root_node.tscn" id="5_6ynje"]
+
+[node name="Level01" type="Node2D"]
+
+[node name="NextLevel" parent="." instance=ExtResource("1_36ytw")]
+visible = false
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.27451, 0.27451, 0.27451, 1)
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1000
+position = Vector2(513, 302)
+scale = Vector2(100, 100)
+texture = ExtResource("1_72ew2")
+
+[node name="Player" parent="." node_paths=PackedStringArray("host_node") instance=ExtResource("2_e5vud")]
+position = Vector2(-1374, 160)
+host_node = NodePath("../PulseNode23")
+
+[node name="PulseNode" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(203, 353)
+rotation = 3.21695
+initial_nodes = Array[NodePath]([NodePath("../RootPulseNode")])
+
+[node name="RootPulseNode" parent="." instance=ExtResource("5_6ynje")]
+position = Vector2(404, 335)
+spawn_uninfecters = false
+initial_nodes = Array[NodePath]([])
+
+[node name="PulseNode3" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(579, 397)
+initial_nodes = Array[NodePath]([NodePath("../RootPulseNode")])
+
+[node name="PulseNode12" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(641, 58)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode6"), NodePath("../PulseNode7")])
+
+[node name="PulseNode13" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(493, -102)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode12"), NodePath("../PulseNode7")])
+
+[node name="PulseNode14" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(194, 162)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode8"), NodePath("../PulseNode7"), NodePath("../PulseNode")])
+
+[node name="PulseNode15" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(169, -47)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode14"), NodePath("../PulseNode7")])
+
+[node name="PulseNode6" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(802, 261)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode3")])
+
+[node name="PulseNode7" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(395, 76)
+initial_nodes = Array[NodePath]([NodePath("../RootPulseNode")])
+
+[node name="PulseNode8" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(6, 299)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode")])
+
+[node name="PulseNode16" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(-122, 176)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode8")])
+
+[node name="PulseNode17" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(-329, 216)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode16")])
+
+[node name="PulseNode18" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(-545, 98)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode17"), NodePath("../PulseNode19")])
+
+[node name="PulseNode19" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(-572, 260)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode17")])
+
+[node name="PulseNode20" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(-750, 160)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode18"), NodePath("../PulseNode19")])
+
+[node name="PulseNode21" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(-947, 159)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode20")])
+
+[node name="PulseNode22" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(-1147, 144)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode21")])
+
+[node name="PulseNode23" parent="." instance=ExtResource("4_yj28q")]
+position = Vector2(-1374, 159)
+initial_nodes = Array[NodePath]([NodePath("../PulseNode22")])
+
+[connection signal="win_game" from="Player" to="NextLevel" method="_on_player_win_game"]

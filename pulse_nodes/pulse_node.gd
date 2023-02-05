@@ -66,10 +66,13 @@ func infect() -> bool:
 		return false
 	is_infected = true
 	$AudioInfect.play()
-	uninfected_light_color = $Light2D.color
+	uninfected_light_color = $Light2D.color if $Light2D is Light2D else $Light2D.modulate
 	uninfected_bg_texture = $Spritebg.texture
 	uninfected_fg_texture = $Sprite.texture
-	$Light2D.color = infected_light_color
+	if $Light2D is Light2D:
+		$Light2D.color = infected_light_color
+	else:
+		$Light2D.modulate = infected_light_color
 	$Spritebg.texture = infected_bg_texture
 	$Sprite.texture = infected_fg_texture
 	for conn in connections:
@@ -84,7 +87,10 @@ func uninfect() -> bool:
 		return false
 	is_infected = false
 	$AudioUninfect.play()
-	$Light2D.color = uninfected_light_color
+	if $Light2D is Light2D:
+		$Light2D.color = uninfected_light_color
+	else:
+		$Light2D.modulate = uninfected_light_color
 	$Spritebg.texture = uninfected_bg_texture
 	$Sprite.texture = uninfected_fg_texture
 	for conn in connections:

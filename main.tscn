@@ -1,86 +1,54 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4e3te0j3lv5n"]
+[gd_scene load_steps=4 format=3 uid="uid://c4e3te0j3lv5n"]
 
-[ext_resource type="PackedScene" uid="uid://g4d7aoh4gma0" path="res://pulse_nodes/pulse_node.tscn" id="1"]
-[ext_resource type="PackedScene" uid="uid://ri4jaj7dxdfj" path="res://pulse_nodes/pulse_root_node.tscn" id="3_tpt4d"]
-[ext_resource type="Texture2D" uid="uid://bbcvcvx0rr8kl" path="res://textures/background.png" id="4"]
-[ext_resource type="PackedScene" uid="uid://csh14obw344ln" path="res://pulse_nodes/player/player.tscn" id="5"]
-[ext_resource type="PackedScene" uid="uid://cpg3rpd72ogng" path="res://pulse_nodes/enemies/uninfecter.tscn" id="5_fgvbr"]
+[ext_resource type="Script" path="res://main.gd" id="1_abkt1"]
+[ext_resource type="PackedScene" uid="uid://uuokxq0w7wue" path="res://levels/level_demo.tscn" id="2_ovjj8"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x21qo"]
+light_mode = 1
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.27451, 0.27451, 0.27451, 1)
+[node name="Main" type="Node2D"]
+script = ExtResource("1_abkt1")
 
-[node name="Background" type="Sprite2D" parent="."]
-z_index = -1000
-position = Vector2(513, 302)
-scale = Vector2(100, 100)
-texture = ExtResource("4")
+[node name="Panel" type="Panel" parent="."]
+offset_left = 822.0
+offset_top = 540.0
+offset_right = 1145.0
+offset_bottom = 643.0
 
-[node name="Player" parent="." node_paths=PackedStringArray("host_node") instance=ExtResource("5")]
-position = Vector2(294, 404)
-host_node = NodePath("../PulseNode")
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 19.0
+offset_right = 324.0
+offset_bottom = 91.0
+text = "GlobalGameJam 2023 submission
+Made by Kalle Fagerberg"
 
-[node name="Uninfecter" parent="." node_paths=PackedStringArray("host_node") instance=ExtResource("5_fgvbr")]
-position = Vector2(440, 291)
-host_node = NodePath("../RootPulseNode")
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 21.0
+offset_top = 568.0
+offset_right = 334.0
+offset_bottom = 640.0
+text = "First time using Godot. This is going to be a wacky experience"
 
-[node name="PulseNode" parent="." instance=ExtResource("1")]
-position = Vector2(203, 353)
-rotation = 3.21695
-initial_nodes = Array[NodePath]([NodePath("../RootPulseNode")])
+[node name="Level" parent="." instance=ExtResource("2_ovjj8")]
+position = Vector2(166, -28)
 
-[node name="RootPulseNode" parent="." instance=ExtResource("3_tpt4d")]
-position = Vector2(404, 335)
-initial_nodes = Array[NodePath]([])
+[node name="Title" type="RichTextLabel" parent="."]
+offset_left = 355.0
+offset_top = 178.0
+offset_right = 814.0
+offset_bottom = 268.0
+theme_override_font_sizes/normal_font_size = 50
+text = "INFECTED ROOTS"
+scroll_active = false
 
-[node name="PulseNode3" parent="." instance=ExtResource("1")]
-position = Vector2(579, 397)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode4"), NodePath("../RootPulseNode")])
+[node name="Button" type="Button" parent="."]
+material = SubResource("CanvasItemMaterial_x21qo")
+offset_left = 503.0
+offset_top = 425.0
+offset_right = 626.0
+offset_bottom = 474.0
+text = "Play"
 
-[node name="PulseNode12" parent="." instance=ExtResource("1")]
-position = Vector2(641, 58)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode6"), NodePath("../PulseNode7")])
-
-[node name="PulseNode13" parent="." instance=ExtResource("1")]
-position = Vector2(493, -102)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode12"), NodePath("../PulseNode7")])
-
-[node name="PulseNode14" parent="." instance=ExtResource("1")]
-position = Vector2(194, 162)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode8"), NodePath("../PulseNode7"), NodePath("../PulseNode")])
-
-[node name="PulseNode15" parent="." instance=ExtResource("1")]
-position = Vector2(169, -47)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode14"), NodePath("../PulseNode7")])
-
-[node name="PulseNode4" parent="." instance=ExtResource("1")]
-position = Vector2(413, 505)
-
-[node name="PulseNode10" parent="." instance=ExtResource("1")]
-position = Vector2(495, 679)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode4")])
-
-[node name="PulseNode11" parent="." instance=ExtResource("1")]
-position = Vector2(181, 649)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode4"), NodePath("../PulseNode9")])
-
-[node name="PulseNode5" parent="." instance=ExtResource("1")]
-position = Vector2(666, 547)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode4"), NodePath("../PulseNode3")])
-
-[node name="PulseNode6" parent="." instance=ExtResource("1")]
-position = Vector2(802, 261)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode3")])
-
-[node name="PulseNode7" parent="." instance=ExtResource("1")]
-position = Vector2(395, 76)
-initial_nodes = Array[NodePath]([NodePath("../RootPulseNode")])
-
-[node name="PulseNode8" parent="." instance=ExtResource("1")]
-position = Vector2(6, 299)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode")])
-
-[node name="PulseNode9" parent="." instance=ExtResource("1")]
-position = Vector2(2, 484)
-initial_nodes = Array[NodePath]([NodePath("../PulseNode")])
+[connection signal="pressed" from="Button" to="." method="_on_start_button_pressed"]
