@@ -1,4 +1,5 @@
 extends NodeMove
+class_name Player
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -25,8 +26,4 @@ func get_uninfected_node_count() -> int:
 func should_reject_move(node: PulseNode) -> bool:
 	if node.is_root and get_uninfected_node_count() > 1:
 		return true
-	for sibling in get_parent().get_children():
-		var node_move = sibling as NodeMove
-		if node_move and node_move.host_node == node and not node_move.next_node:
-			return true
-	return false
+	return not not get_node_move_on_node(node)

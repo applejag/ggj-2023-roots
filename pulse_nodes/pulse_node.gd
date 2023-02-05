@@ -91,3 +91,9 @@ func uninfect() -> bool:
 	for node in connected_nodes:
 		node.emit_signal("on_neighbor_infected_changed", self)
 	return true
+
+func is_all_neighbors_infected() -> bool:
+	for node in connected_nodes:
+		if not node.is_infected:
+			return false
+	return true

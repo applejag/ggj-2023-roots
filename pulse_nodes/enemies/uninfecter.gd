@@ -12,22 +12,34 @@ func _process(delta: float) -> void:
 	if not next_node:
 		post_move_wait -= delta
 		if post_move_wait <= 0:
-			var node = find_node_to_move_to()
-			move_to_node(node)
 			post_move_wait = randf_range(post_move_delay_min_sec, post_move_delay_max_sec)
+			var node = find_node_to_move_to()
+			if node:
+				move_to_node(node)
 
 func _on_node_move_start():
-	if host_node.is_connected("on_neighbor_infected_changed", self._on_neighbor_infected_changed):
-		host_node.disconnect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
-func _on_node_move_done():
-	if not check_if_dead():
-		host_node.connect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
+	if not next_node.is_connected("on_neighbor_infected_changed", self._on_neighbor_infected_changed):
+		next_node.connect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
+	pass
+func _on_node_move_done(prev_node: PulseNode):
+	if prev_node.is_connected("on_neighbor_infected_changed", self._on_neighbor_infected_changed):
+		prev_node.disconnect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
 
-func _on_neighbor_infected_changed(node: PulseNode):
+	var move = get_node_move_on_node(host_node)
+	if move is Player:
+		# KILL PLAYER!!
+		move.queue_free()
+	
+	if not check_if_dead():
+		if not host_node.is_connected("on_neighbor_infected_changed", self._on_neighbor_infected_changed):
+			host_node.connect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
+
+func _on_neighbor_infected_changed(_node: PulseNode):
 	check_if_dead()
 
 func check_if_dead() -> bool:
-	if is_all_neighbors_infected():
+	if (next_node and next_node.is_all_neighbors_infected()) \
+		or (not next_node and host_node.is_all_neighbors_infected()):
 		if host_node.is_connected("on_neighbor_infected_changed", self._on_neighbor_infected_changed):
 			host_node.disconnect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
 		queue_free()
@@ -37,8 +49,23 @@ func check_if_dead() -> bool:
 func find_node_to_move_to() -> PulseNode:
 	var infected: Array[PulseNode] = []
 	for node in host_node.connected_nodes:
-		if node.is_infected:
+		if node.is_infected and can_move_to_node(node):
 			infected.push_back(node)
-	if len(infected) > 0 :
+	if len(infected) > 0:
 		return infected.pick_random()
-	return host_node.connected_nodes.pick_random()
+	var uninhabited: Array[PulseNode] = []
+	for node in host_node.connected_nodes:
+		if can_move_to_node(node):
+			uninhabited.push_back(node)
+	if len(uninhabited) > 0:
+		return uninhabited.pick_random()
+	return null
+
+func can_move_to_node(node: PulseNode) -> bool:
+	if node.is_root:
+		return false
+	var approaching = get_node_move_going_to_node(node)
+	if approaching:
+		return approaching is Player
+	var move = get_node_move_on_node(node)
+	return not move or move is Player

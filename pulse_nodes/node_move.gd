@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 
 func _on_node_move_start():
 	pass
-func _on_node_move_done():
+func _on_node_move_done(_prev_node: PulseNode):
 	pass
 
 func process_node_move(delta: float):
@@ -34,11 +34,12 @@ func process_node_move(delta: float):
 				next_node = null
 				transform = Transform2D(0, host_pos)
 			else:
+				var prev_node = host_node
 				next_node.apply_central_impulse((next_pos-host_pos).normalized()*impulse_on_arrival)
 				host_node = next_node
 				next_node = null
 				transform = Transform2D(0, next_pos)
-				_on_node_move_done()
+				_on_node_move_done(prev_node)
 		else:
 			var t: float
 			if next_node_reject:
@@ -78,9 +79,17 @@ func get_closest_node(point: Vector2) -> PulseNode:
 			closest_len_sqr = len_sqr
 			closest_node = node
 	return closest_node
+	
+func get_node_move_on_node(node: PulseNode) -> NodeMove:
+	for sibling in get_parent().get_children():
+		var node_move = sibling as NodeMove
+		if node_move and node_move.host_node == node and not node_move.next_node:
+			return node_move
+	return null
 
-func is_all_neighbors_infected() -> bool:
-	for node in host_node.connected_nodes:
-		if not node.is_infected:
-			return false
-	return true
+func get_node_move_going_to_node(node: PulseNode) -> NodeMove:
+	for sibling in get_parent().get_children():
+		var node_move = sibling as NodeMove
+		if node_move and node_move.next_node == node:
+			return node_move
+	return null
