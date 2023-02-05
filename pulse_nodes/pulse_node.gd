@@ -17,6 +17,9 @@ var connected_nodes: Array[PulseNode] = []
 var connections: Array[PulseNodeConnection] = []
 var connecting_line_scene = preload("res://connecting_line.tscn")
 
+signal on_infected_changed(node: PulseNode)
+signal on_neighbor_infected_changed(node: PulseNode)
+
 func _ready() -> void:
 	# Create connection for nodes specified in editor
 	for node_path in initial_nodes:
@@ -70,6 +73,9 @@ func infect() -> bool:
 	$Sprite.texture = infected_fg_texture
 	for conn in connections:
 		conn.update_infected()
+	emit_signal("on_infected_changed", self)
+	for node in connected_nodes:
+		node.emit_signal("on_neighbor_infected_changed", self)
 	return true
 
 func uninfect() -> bool:
@@ -81,4 +87,7 @@ func uninfect() -> bool:
 	$Sprite.texture = uninfected_fg_texture
 	for conn in connections:
 		conn.update_infected()
+	emit_signal("on_infected_changed", self)
+	for node in connected_nodes:
+		node.emit_signal("on_neighbor_infected_changed", self)
 	return true

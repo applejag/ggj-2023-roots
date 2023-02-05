@@ -18,6 +18,11 @@ func _process(delta: float) -> void:
 		$AudioInfect.play()
 	process_node_move(delta)
 
+func _on_node_move_start():
+	pass
+func _on_node_move_done():
+	pass
+
 func process_node_move(delta: float):
 	var host_pos = host_node.position
 	if next_node:
@@ -33,6 +38,7 @@ func process_node_move(delta: float):
 				host_node = next_node
 				next_node = null
 				transform = Transform2D(0, next_pos)
+				_on_node_move_done()
 		else:
 			var t: float
 			if next_node_reject:
@@ -56,6 +62,7 @@ func move_to_node(node: PulseNode, reject: bool = false) -> void:
 		$AudioMoveReject.play()
 	else:
 		$AudioMove.play()
+		_on_node_move_start()
 
 func get_closest_node(point: Vector2) -> PulseNode:
 	if len(host_node.connected_nodes) == 0:
@@ -71,3 +78,9 @@ func get_closest_node(point: Vector2) -> PulseNode:
 			closest_len_sqr = len_sqr
 			closest_node = node
 	return closest_node
+
+func is_all_neighbors_infected() -> bool:
+	for node in host_node.connected_nodes:
+		if not node.is_infected:
+			return false
+	return true

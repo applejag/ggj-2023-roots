@@ -15,6 +15,24 @@ func _process(delta: float) -> void:
 			move_to_node(node)
 			post_move_wait = randf_range(post_move_delay_min_sec, post_move_delay_max_sec)
 
+func _on_node_move_start():
+	if host_node.is_connected("on_neighbor_infected_changed", self._on_neighbor_infected_changed):
+		host_node.disconnect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
+func _on_node_move_done():
+	if not check_if_dead():
+		host_node.connect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
+
+func _on_neighbor_infected_changed(node: PulseNode):
+	check_if_dead()
+
+func check_if_dead() -> bool:
+	if is_all_neighbors_infected():
+		if host_node.is_connected("on_neighbor_infected_changed", self._on_neighbor_infected_changed):
+			host_node.disconnect("on_neighbor_infected_changed", self._on_neighbor_infected_changed)
+		queue_free()
+		return true
+	return false
+
 func find_node_to_move_to() -> PulseNode:
 	var infected: Array[PulseNode] = []
 	for node in host_node.connected_nodes:
