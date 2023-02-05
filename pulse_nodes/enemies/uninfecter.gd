@@ -1,4 +1,5 @@
 extends NodeMove
+class_name Uninfecter
 
 @export var post_move_delay_min_sec = 3
 @export var post_move_delay_max_sec = 5

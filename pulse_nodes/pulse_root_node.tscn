@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=11 format=3 uid="uid://ri4jaj7dxdfj"]
 
-[ext_resource type="Script" path="res://pulse_nodes/pulse_node.gd" id="1_oawc5"]
+[ext_resource type="Script" path="res://pulse_nodes/pulse_root_node.gd" id="1_rh0yr"]
 [ext_resource type="Texture2D" uid="uid://d4f3l6ii6sxav" path="res://textures/player_bg.png" id="2_4y1uo"]
 [ext_resource type="Texture2D" uid="uid://cvn0hvttgoorb" path="res://textures/light.png" id="2_vvahe"]
 [ext_resource type="Texture2D" uid="uid://be1hgcllpd08b" path="res://textures/player_center.png" id="3_4h03r"]
@@ -21,7 +21,7 @@ radius = 36.3456
 [node name="RootPulseNode" type="RigidBody2D"]
 rotation = 0.0960859
 freeze = true
-script = ExtResource("1_oawc5")
+script = ExtResource("1_rh0yr")
 is_root = true
 initial_nodes = Array[NodePath]([NodePath("../PulseNode3")])
 infected_bg_texture = ExtResource("2_4y1uo")

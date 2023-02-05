@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c4e3te0j3lv5n"]
 
 [ext_resource type="PackedScene" uid="uid://g4d7aoh4gma0" path="res://pulse_nodes/pulse_node.tscn" id="1"]
-[ext_resource type="PackedScene" path="res://pulse_nodes/pulse_root_node.tscn" id="3_tpt4d"]
+[ext_resource type="PackedScene" uid="uid://ri4jaj7dxdfj" path="res://pulse_nodes/pulse_root_node.tscn" id="3_tpt4d"]
 [ext_resource type="Texture2D" uid="uid://bbcvcvx0rr8kl" path="res://textures/background.png" id="4"]
 [ext_resource type="PackedScene" uid="uid://csh14obw344ln" path="res://pulse_nodes/player/player.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cpg3rpd72ogng" path="res://pulse_nodes/enemies/uninfecter.tscn" id="5_fgvbr"]
