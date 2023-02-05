@@ -16,6 +16,11 @@ Made with Godot Engine v4.
 - Linux/X11: <https://github.com/jilleJr/ggj-2023-roots/releases/download/v0.1.0/linux.zip>
 - Windows: <https://github.com/jilleJr/ggj-2023-roots/releases/download/v0.1.0/windows.zip>
 
+## Other links
+
+- ItchIO: <https://jillejr.itch.io/infected-roots>
+- GlobalGameJam: <https://globalgamejam.org/2023/games/infected-root-0>
+
 ## Credits
 
 Kalle Fagerberg
