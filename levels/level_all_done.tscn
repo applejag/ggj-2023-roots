@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://0kiw3o1np4k5"]
+
+[ext_resource type="Script" path="res://levels/next_level.gd" id="1_xmjbv"]
+[ext_resource type="Texture2D" uid="uid://bbcvcvx0rr8kl" path="res://textures/background.png" id="2_01hgv"]
+
+[node name="Level01" type="Node2D"]
+
+[node name="NextLevel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xmjbv")
+next_level = "res://main.tscn"
+
+[node name="Button" type="Button" parent="NextLevel"]
+layout_mode = 0
+offset_left = 483.0
+offset_top = 384.0
+offset_right = 620.0
+offset_bottom = 437.0
+text = "Back to main menu"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NextLevel"]
+layout_mode = 0
+offset_left = 481.0
+offset_top = 322.0
+offset_right = 738.0
+offset_bottom = 395.0
+theme_override_font_sizes/normal_font_size = 20
+text = "All levels complete!
+You won the game"
+
+[node name="Camera2D" type="Camera2D" parent="NextLevel"]
+position = Vector2(579, 325)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.27451, 0.27451, 0.27451, 1)
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1000
+position = Vector2(513, 302)
+scale = Vector2(100, 100)
+texture = ExtResource("2_01hgv")
+
+[connection signal="pressed" from="NextLevel/Button" to="NextLevel" method="_on_next_button_pressed" flags=18]
