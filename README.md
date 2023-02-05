@@ -11,6 +11,11 @@ Steer your infected agent with mouse, and move by clicking any mouse button. No 
 
 Made with Godot Engine v4.
 
+## Download
+
+- Linux/X11: <https://github.com/jilleJr/ggj-2023-roots/releases/download/v0.1.0/linux.zip>
+- Windows: <https://github.com/jilleJr/ggj-2023-roots/releases/download/v0.1.0/windows.zip>
+
 ## Credits
 
 Kalle Fagerberg
